@@ -1,13 +1,18 @@
-import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import Repository from '../views/Repository';
+import Layout from '../layouts/Layout';
 import Error from '../views/Error';
+import Repository from '../views/Repository';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Repository />,
+    element: <Layout />,
     errorElement: <Error />,
+    children: [
+      {
+        path: "/",
+        element: <Repository />,
+      },
+    ],
   },
 ]);
 
