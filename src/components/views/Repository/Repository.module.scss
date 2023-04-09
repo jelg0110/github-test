@@ -1,36 +1,41 @@
+@import "/src/assets/css/variables.scss";
+
 .Repository {
-  text-align: center;
+  &__search_container {
+    margin-bottom: 1.5rem;
+  }
 
-  &__logo {
-    height: 40vmin;
-    pointer-events: none;
+  &__repositories {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+    grid-auto-rows: minmax(100%, auto);
 
-    @media (prefers-reduced-motion: no-preference) {
-      animation: spin infinite 1.5s linear;
+    @media (max-width: $breakpoint-lg) {
+      grid-template-columns: repeat(3, 1fr);
     }
-  }
-
-  &__header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  &__link {
-    color: #61dafb;
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
+.CardContent {
+  display: flex;
+  flex-direction: column;
+
+  &__description {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  &__lang_container {
+    margin-top: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 }

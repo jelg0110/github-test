@@ -6,7 +6,7 @@ export default function Header() {
 
   return <header className={styles.Header}>
     <Link className={styles.Header__title} to="/">
-      <img src={logo} className={styles.Header__logo} alt="logo" />
+      <img src={logo} alt="logo" />
       Github Browser
     </Link>
   </header>;
