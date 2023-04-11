@@ -1,11 +1,12 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
+import styles from './Error.module.scss';
 
 export default function Error() {
   const error = useRouteError();
 
   if (isRouteErrorResponse(error)) {
     return (
-      <div>
+      <div className={styles.Error}>
         <h1>Oops!</h1>
         <h2>{error.status}</h2>
         <p>{error.statusText}</p>

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
 export default interface CardType {
-  title: ReactNode
+  title?: ReactNode
   children: ReactNode;
 }

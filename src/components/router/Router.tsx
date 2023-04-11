@@ -5,11 +5,12 @@ import Repository from '../views/Repository';
 
 const router = createBrowserRouter([
   {
+    path: '/',
     element: <Layout />,
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <Repository />,
       },
     ],
