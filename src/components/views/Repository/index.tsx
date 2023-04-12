@@ -1,16 +1,30 @@
-import { useState } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './Repository.module.scss';
+import RepositoryCardContent from './RepositoryCardContent';
 import Card from '../../common/Card';
 import SearchInput from '../../common/SearchInput';
 import Loader from '../../common/Loader';
-import RepositoryCardContent from './RepositoryCardContent';
 import { getRepositoryLanguages, getUserRepositories } from '../../../services/RepositoryService';
+import { getError } from '../../../services/utils';
 import { Repository } from '../../../types/Repository';
 
 function RepositoryComponent() {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [error, setError] = useState<null | Error | Response>(null);
+  const user = searchParams.get('user');
+
+  useEffect(() => {
+    if (user) {
+      fetchRepositories(user);
+    } else {
+      setRepositories([]);
+      setError(null);
+    }
+  }, [user])
 
   const fetchRepositories = (value: string) => {
     setLoading(true);
@@ -47,24 +61,22 @@ function RepositoryComponent() {
       })
   }
 
-  const getError = (error: Error | Response) => {
-    if (error instanceof Response) {
-      switch (error.status) {
-        case 404:
-          return 'User not found';
-        default:
-          return 'There was an error with your request, try again';
-      }
-    } else if (error instanceof Error) {
-      return error.message;
-    }
-    return 'There was an error with your request, try again';
+  const handleSubmit = (user: string) => {
+    setSearchParams({ user });
+  }
+
+  const handleCardClick = (repo: Repository) => (event: MouseEvent<HTMLDivElement>) => {
+    navigate(`/${repo.owner.login}/${repo.name}`);
   }
 
   const Content = repositories.length > 0
     ? <div className={styles.Repository__card_container}>
       {
-        repositories.map((repo, index) => <div key={index} className={styles.Repository__card_item}>
+        repositories.map((repo, index) => <div
+          key={index}
+          className={styles.Repository__card_item}
+          onClick={handleCardClick(repo)}
+        >
           <Card title={repo.name}>
             <RepositoryCardContent repository={repo} />
           </Card>
@@ -81,7 +93,8 @@ function RepositoryComponent() {
     <div className={styles.Repository}>
       <div className={styles.Repository__search_container}>
         <SearchInput
-          onSubmit={fetchRepositories}
+          value={user || ''}
+          onSubmit={handleSubmit}
           inputProps={{ placeholder: 'Search by user' }}
           buttonProps={{ disabled: loading }}
         />

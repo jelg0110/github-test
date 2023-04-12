@@ -1,12 +1,16 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styles from './SearchInput.module.scss';
 import SearchInputType from './SearchInput';
 
-export default function SearchInput({ onSubmit, inputProps, buttonProps }: SearchInputType) {
-  const [value, setValue] = useState('');
+export default function SearchInput({ value, onSubmit, inputProps, buttonProps }: SearchInputType) {
+  const [val, setVal] = useState('');
+
+  useEffect(() => {
+    setVal(value);
+  }, [value])
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
+    setVal(event.target.value)
     if (inputProps && inputProps.onChange) {
       inputProps.onChange(event);
     }
@@ -14,8 +18,8 @@ export default function SearchInput({ onSubmit, inputProps, buttonProps }: Searc
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (value) {
-      onSubmit(value);
+    if (val) {
+      onSubmit(val);
     }
   }
 
@@ -26,7 +30,7 @@ export default function SearchInput({ onSubmit, inputProps, buttonProps }: Searc
         placeholder="Search..."
         name="search"
         {...inputProps}
-        value={value}
+        value={val}
         onChange={handleChange}
       />
       <button type="submit" {...buttonProps}>Search</button>

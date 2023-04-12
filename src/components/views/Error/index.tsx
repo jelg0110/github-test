@@ -1,4 +1,4 @@
-import { isRouteErrorResponse, useRouteError } from "react-router-dom";
+import { isRouteErrorResponse, useRouteError, Link } from "react-router-dom";
 import styles from './Error.module.scss';
 
 export default function Error() {
@@ -9,8 +9,9 @@ export default function Error() {
       <div className={styles.Error}>
         <h1>Oops!</h1>
         <h2>{error.status}</h2>
-        <p>{error.statusText}</p>
+        {error.statusText && <p>{error.statusText}</p>}
         {error.data?.message && <p>{error.data.message}</p>}
+        <Link to="/">Back to home</Link>
       </div>
     );
   } else {
