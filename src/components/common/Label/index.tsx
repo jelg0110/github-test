@@ -11,7 +11,7 @@ const Label = ({ children, color }: LabelType) => {
   }
 
   return (
-    <span className={styles.Label} style={style}>
+    <span className={styles.Label} style={style} data-testid="label">
       {children}
     </span>
   );

@@ -1,7 +1,7 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
 
 test('Render App succesfully', () => {
-  render(<App />);
+  const view = render(<App />);
+  expect(view).toBeDefined();
 });

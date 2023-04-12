@@ -6,7 +6,9 @@ export default function SearchInput({ value, onSubmit, inputProps, buttonProps }
   const [val, setVal] = useState('');
 
   useEffect(() => {
-    setVal(value);
+    if (value !== undefined) {
+      setVal(value);
+    }
   }, [value])
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +34,9 @@ export default function SearchInput({ value, onSubmit, inputProps, buttonProps }
         {...inputProps}
         value={val}
         onChange={handleChange}
+        data-testid="search-input"
       />
-      <button type="submit" {...buttonProps}>Search</button>
+      <button type="submit" {...buttonProps} data-testid="search-button">Search</button>
     </form>
   );
 }
