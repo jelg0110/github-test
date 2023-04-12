@@ -1,0 +1,28 @@
+.SearchInput {
+  display: flex;
+  justify-content: center;
+
+  input[type="text"] {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    width: 50%;
+    border: 1px solid;
+    border-right: none;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    background-color: #2196f3;
+    color: white;
+    font-size: 1rem;
+    border: none;
+
+    &:hover {
+      background-color: #116cb6;
+    }
+
+    &:disabled {
+      background-color: #2195f39a;
+    }
+  }
+}
